@@ -14,6 +14,7 @@ public class RegistrationController {
     private DataInputStream in;
     private DataOutputStream out;
 
+
     @FXML
     TextField login, password, nickname;
 
