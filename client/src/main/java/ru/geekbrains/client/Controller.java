@@ -15,12 +15,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Test;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -52,6 +53,7 @@ public class Controller implements Initializable {
     private String nickname;
     private ObservableList<String> clients;
     private boolean authorized;
+    private ReadWriteLinesToFile hystoryService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -153,6 +155,21 @@ public class Controller implements Initializable {
                             if (str.startsWith("/authok")) {
                                 nickname = str.split(" ")[1];
                                 setAuthorized(true);
+                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                File file = new File(filename);
+                                if (!file.exists()) {
+                                file.createNewFile();
+                                }
+                                hystoryService = HystoryService.getInstance(file);
+                                List<String> chat = hystoryService.getLastLines(file, 100);
+                                textArea.appendText(chat.toString());
+                                for (String chatmsg: chat) {
+                                    textArea.appendText(chatmsg); //textArea.appendText(chatmsg + System.lineSeparator()) вот здесь у меня проблема,
+                                    // как только добавляю lineSeparator программа больше не работает.
+                                    // К сожалению, совсем не могу найти причину. Без разделения на строки работает всё хорошо.
+                                    // Я уже даже переделал всё по Вашему разбору ДЗ, но всё равно не работает.
+                                    // Из-за этой проблемы, прогорели все сроки сдачи ДЗ, прошу прощения.
+                                }
                                 break;
                             }
                         }
@@ -160,6 +177,13 @@ public class Controller implements Initializable {
                             String str = in.readUTF();
                             if (!str.startsWith("/")) {
                                 textArea.appendText(str + System.lineSeparator());
+                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                File file = new File(filename);
+                                if (!file.exists()) {
+                                    file.createNewFile();
+                                }
+                                hystoryService = HystoryService.getInstance(file);
+                                hystoryService.writeLineToFile(str + System.lineSeparator());
                             } else if (str.startsWith("/clientslist")) {
                                 // /clientslist nick1 nick2 nick3
                                 String[] subStr = str.split(" ");
@@ -211,4 +235,33 @@ public class Controller implements Initializable {
         }
 
     }
+
+    public void log() throws IOException {
+        File log = new File("src/main/java/ru/geekbrains/client/Log/history_" + nickname + ".txt");
+        System.out.println(nickname);
+        System.out.println(log.exists());
+//        if (!log.exists()){
+//            log.createNewFile();
+//        }
+    }
+
+    @Test
+    public void test() throws IOException {
+        String filename = System.getProperty("user.dir") + "\\history_test.txt";
+        System.out.println(filename);
+        File file = new File(filename);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try (ReadWriteLinesToFile hystoryTest = HystoryService.getInstance(file)) {
+            List<String> chat = hystoryTest.getLastLines(file, 100);
+            for (String a : chat){
+                System.out.println(a);
+            }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
 }
+

@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ClientHandler {
     private Server server;
@@ -11,6 +13,8 @@ public class ClientHandler {
     private DataInputStream in;
     private DataOutputStream out;
     private String nickname;
+    //добавил формат даты для логов
+    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
 
     public ClientHandler(Server server, Socket socket) {
         try {
@@ -18,6 +22,7 @@ public class ClientHandler {
             this.socket = socket;
             this.in = new DataInputStream(socket.getInputStream());
             this.out = new DataOutputStream(socket.getOutputStream());
+
             new Thread(() -> {
                 try {
                     while (true) {
@@ -59,18 +64,19 @@ public class ClientHandler {
 
                     while (true) {
                         String str = in.readUTF();
-                        System.out.println("Сообщение от клиента: " + str);
+                        System.out.println("[" + dateFormat.format(new Date()) + "]" + "Сообщение от клиента: " + str);
                         if (str.startsWith("/")) {
                             if (str.equals("/end")) {
                                 break;
                             } else if (str.startsWith("/w")) {
+                                // личные сообщения
                                 // /w nick hello m8! hi
                                 final String[] subStrings = str.split(" ", 3);
                                 if (subStrings.length == 3) {
                                     final String toUserNick = subStrings[1];
                                     if (server.isNickInChat(toUserNick)) {
-                                        server.unicastMsg(toUserNick, "from " + nickname + ": " + subStrings[2]);
-                                        sendMsg("to " + toUserNick + ": " + subStrings[2]);
+                                        server.unicastMsg(toUserNick, "[" + dateFormat.format(new Date()) + "]" + " " + "from " + nickname + ": " + subStrings[2]);
+                                        sendMsg("[" + dateFormat.format(new Date()) + "]" + " " + "to " + toUserNick + ": " + subStrings[2]);
                                     } else {
                                         sendMsg("User with nick '" + toUserNick + "' not found in chat room");
                                     }
@@ -82,9 +88,9 @@ public class ClientHandler {
                                 String[] subStr = str.split(" ");
                                 if (subStr.length == 2){
                                     if (SQLHandler.tryToChangeNick(subStr[1], nickname)){
-                                        sendMsg(nickname + " изменён на " + subStr[1]);
+                                        sendMsg("[" + dateFormat.format(new Date()) + "]" + nickname + " изменён на " + subStr[1]);
                                         sendMsg("Изменения вступят в силу после перезахода");
-                                        server.broadcastMsg(nickname + " changed has nickname to " + subStr[1]);
+                                        server.broadcastMsg("[" + dateFormat.format(new Date()) + "]" + nickname + " changed has nickname to " + subStr[1]);
                                         break;
                                     } else {
                                         sendMsg("Incorrect nickname");
@@ -92,7 +98,7 @@ public class ClientHandler {
                                 }
                             }
                         } else {
-                            server.broadcastMsg(nickname + ": " + str);
+                            server.broadcastMsg("[" + dateFormat.format(new Date()) + "]" + " " + nickname + ": " + str);
                         }
                     }
                 } catch (IOException e) {
