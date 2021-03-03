@@ -2,7 +2,6 @@ package ru.geekbrains.server;
 
 import java.sql.*;
 
-
 public class SQLHandler {
     private static Connection connection;
     private static Statement statement;
