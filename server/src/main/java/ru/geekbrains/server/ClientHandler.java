@@ -1,8 +1,5 @@
 package ru.geekbrains.server;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,7 +17,6 @@ public class ClientHandler {
     private String nickname;
     //добавил формат даты для логов
     SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yyyy");
-    private static Logger logger = LogManager.getLogger();
 
     public ClientHandler(Server server, Socket socket) {
         try {
@@ -39,25 +35,20 @@ public class ClientHandler {
                         if (str.startsWith("/auth")) {
                             String[] subStrings = str.split(" ", 3);
                             if (subStrings.length == 3) {
-                                logger.info("Пользователь пытается авторизоваться с логином " + subStrings[1]);
                                 String nickFromDB = SQLHandler.getNickByLoginAndPassword(subStrings[1], subStrings[2]);
                                 if (nickFromDB != null) {
                                     if (!server.isNickInChat(nickFromDB)) {
                                         nickname = nickFromDB;
                                         sendMsg("/authok " + nickname);
                                         server.subscribe(ClientHandler.this);
-                                        logger.info("Упешная авторизация ползователя " + subStrings[1]);
                                         break;
                                     } else {
-                                        logger.warn("Данный пользователь " + subStrings[1] + ", уже авторизован в чате");
                                         sendMsg("This nick already in use");
                                     }
                                 } else {
-                                    logger.warn("Неудачная авторизация " + subStrings[1]);
                                     sendMsg("Wrong login/password");
                                 }
                             } else {
-                                logger.warn("Пользователь ввёл неккоретные данные для входа");
                                 sendMsg("Wrong data format");
                             }
                         }
@@ -65,12 +56,9 @@ public class ClientHandler {
                             String[] subStr = str.split(" ");
                             // /registration login pass nick
                             if (subStr.length == 4) {
-                                logger.info("Попытка регистрации. Пользователь ввёл login = " + subStr[1] + " password + subStr[3]");
                                 if (SQLHandler.tryToRegister(subStr[1], subStr[2], subStr[3])) {
-                                    logger.info("Успешная регистрация пользователя " + subStr[1]);
                                     sendMsg("Registration complete");
                                 } else {
-                                    logger.warn("Неудачная регистрация пользователя " + subStr[1] + ", с ником " + subStr[3]);
                                     sendMsg("Incorrect login/password/nickname");
                                 }
                             }
@@ -83,7 +71,6 @@ public class ClientHandler {
                         System.out.println("[" + dateFormat.format(new Date()) + "]" + "Сообщение от клиента: " + str);
                         if (str.startsWith("/")) {
                             if (str.equals("/end")) {
-                                logger.info("Пользователь " + nickname + " выходит из чата");
                                 break;
                             } else if (str.startsWith("/w")) {
                                 // личные сообщения
@@ -95,11 +82,9 @@ public class ClientHandler {
                                         server.unicastMsg(toUserNick, "[" + dateFormat.format(new Date()) + "]" + " " + "from " + nickname + ": " + subStrings[2]);
                                         sendMsg("[" + dateFormat.format(new Date()) + "]" + " " + "to " + toUserNick + ": " + subStrings[2]);
                                     } else {
-                                        logger.warn("Неудачная попытка отправки личного сообщения от пользователя " + nickname + ", т.к. пользователя " + toUserNick + " нет в чате");
                                         sendMsg("User with nick '" + toUserNick + "' not found in chat room");
                                     }
                                 } else {
-                                    logger.warn("Недостаточно параметров для отправки личного сообщения от пользователя" + nickname);
                                     sendMsg("Wrong private message");
                                 }
                             } else if (str.startsWith("/changenick")){
@@ -108,7 +93,6 @@ public class ClientHandler {
                                 if (subStr.length == 2){
                                     if (SQLHandler.tryToChangeNick(subStr[1], nickname)){
                                         sendMsg("[" + dateFormat.format(new Date()) + "]" + nickname + " изменён на " + subStr[1]);
-                                        logger.debug("Пользователь " + nickname + " изменил ник на " + subStr[1]);
                                         sendMsg("Изменения вступят в силу после перезахода");
                                         server.broadcastMsg("[" + dateFormat.format(new Date()) + "]" + nickname + " changed has nickname to " + subStr[1]);
                                         break;
@@ -125,24 +109,18 @@ public class ClientHandler {
                     e.printStackTrace();
                 } finally {
                     try {
-                        logger.debug("Попытка закрытия входящего потока");
                         in.close();
                     } catch (IOException e) {
-                        logger.error("Закрытие входящего потока завершилось неудачно" , e);
                         e.printStackTrace();
                     }
                     try {
-                        logger.debug("Попытка закрытия исхдящего потока");
                         out.close();
                     } catch (IOException e) {
-                        logger.error("Закрытие исходящего потока завершилось неудачно" , e);
                         e.printStackTrace();
                     }
                     try {
-                        logger.debug("Попытка закрытия сокета");
                         socket.close();
                     } catch (IOException e) {
-                        logger.error("Закрытие сокета завершилось неудачно" , e);
                         e.printStackTrace();
                     }
                     server.unsubscribe(ClientHandler.this);
@@ -151,7 +129,6 @@ public class ClientHandler {
             });
             executorService.shutdown();
         } catch (IOException e) {
-            logger.error("Ошибка исполнения ClientHandler" , e);
             e.printStackTrace();
         }
     }
@@ -160,7 +137,6 @@ public class ClientHandler {
         try {
             out.writeUTF(msg);
         } catch (IOException e) {
-            logger.error("Неуданая оправка сообщения" , e);
             e.printStackTrace();
         }
     }

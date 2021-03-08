@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 public class Server {
     private Map<String, ClientHandler> clients;
 
