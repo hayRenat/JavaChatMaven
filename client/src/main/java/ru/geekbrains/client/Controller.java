@@ -1,8 +1,6 @@
 package ru.geekbrains.client;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,10 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.lang.StringUtils;
-import org.junit.Test;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.List;
@@ -54,6 +53,7 @@ public class Controller implements Initializable {
     private ObservableList<String> clients;
     private boolean authorized;
     private ReadWriteLinesToFile hystoryService;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -163,13 +163,6 @@ public class Controller implements Initializable {
                                 hystoryService = HystoryService.getInstance(file);
                                 List<String> chat = hystoryService.getLastLines(file, 100);
                                 textArea.appendText(chat.toString());
-                                for (String chatmsg: chat) {
-                                    textArea.appendText(chatmsg); //textArea.appendText(chatmsg + System.lineSeparator()) вот здесь у меня проблема,
-                                    // как только добавляю lineSeparator программа больше не работает.
-                                    // К сожалению, совсем не могу найти причину. Без разделения на строки работает всё хорошо.
-                                    // Я уже даже переделал всё по Вашему разбору ДЗ, но всё равно не работает.
-                                    // Из-за этой проблемы, прогорели все сроки сдачи ДЗ, прошу прощения.
-                                }
                                 break;
                             }
                         }
@@ -243,25 +236,6 @@ public class Controller implements Initializable {
 //        if (!log.exists()){
 //            log.createNewFile();
 //        }
-    }
-
-    @Test
-    public void test() throws IOException {
-        String filename = System.getProperty("user.dir") + "\\history_test.txt";
-        System.out.println(filename);
-        File file = new File(filename);
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        try (ReadWriteLinesToFile hystoryTest = HystoryService.getInstance(file)) {
-            List<String> chat = hystoryTest.getLastLines(file, 100);
-            for (String a : chat){
-                System.out.println(a);
-            }
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-
     }
 }
 
