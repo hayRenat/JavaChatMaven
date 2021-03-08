@@ -32,3 +32,21 @@ java.net.SocketException: Socket closed
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
 	at java.base/java.lang.Thread.run(Thread.java:834) [?:?]
+2021-03-08 19:36:31,828 INFO r.g.s.SQLHandler [main] Успешное подключение к БД
+2021-03-08 19:37:07,824 INFO r.g.s.ClientHandler [pool-2-thread-1] Пользователь пытается авторизоваться с логином login1
+2021-03-08 19:37:07,847 INFO r.g.s.ClientHandler [pool-2-thread-1] Упешная авторизация пользователя login1
+2021-03-08 19:37:09,437 INFO r.g.s.ClientHandler [pool-2-thread-1] Пользователь Artem выходит из чата
+2021-03-08 19:37:09,438 ERROR r.g.s.ClientHandler [pool-2-thread-1] Неудачная отправка сообщения
+java.net.SocketException: Socket closed
+	at java.base/java.net.SocketOutputStream.socketWrite(SocketOutputStream.java:113) ~[?:?]
+	at java.base/java.net.SocketOutputStream.write(SocketOutputStream.java:150) ~[?:?]
+	at java.base/java.io.DataOutputStream.write(DataOutputStream.java:107) ~[?:?]
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:401) ~[?:?]
+	at java.base/java.io.DataOutputStream.writeUTF(DataOutputStream.java:323) ~[?:?]
+	at ru.geekbrains.server.ClientHandler.sendMsg(ClientHandler.java:162) ~[classes/:?]
+	at ru.geekbrains.server.Server.broadcastMsg(Server.java:50) ~[classes/:?]
+	at ru.geekbrains.server.Server.unsubscribe(Server.java:38) ~[classes/:?]
+	at ru.geekbrains.server.ClientHandler.lambda$new$0(ClientHandler.java:149) ~[classes/:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:834) [?:?]
