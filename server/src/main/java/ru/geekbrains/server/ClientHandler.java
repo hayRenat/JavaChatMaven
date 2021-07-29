@@ -65,7 +65,6 @@ public class ClientHandler {
                         }
                     }
 
-
                     while (true) {
                         String str = in.readUTF();
                         System.out.println("[" + dateFormat.format(new Date()) + "]" + "Сообщение от клиента: " + str);
