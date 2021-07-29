@@ -1,8 +1,6 @@
 package ru.geekbrains.client;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,9 +16,11 @@ import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -52,6 +52,8 @@ public class Controller implements Initializable {
     private String nickname;
     private ObservableList<String> clients;
     private boolean authorized;
+    private ReadWriteLinesToFile hystoryService;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -150,6 +152,14 @@ public class Controller implements Initializable {
                             if (str.startsWith("/authok")) {
                                 nickname = str.split(" ")[1];
                                 setAuthorized(true);
+                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                File file = new File(filename);
+                                if (!file.exists()) {
+                                file.createNewFile();
+                                }
+                                hystoryService = HystoryService.getInstance(file);
+                                List<String> chat = hystoryService.getLastLines(file, 100);
+                                textArea.appendText(chat.toString());
                                 break;
                             }
                         }
@@ -157,6 +167,13 @@ public class Controller implements Initializable {
                             String str = in.readUTF();
                             if (!str.startsWith("/")) {
                                 textArea.appendText(str + System.lineSeparator());
+                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                File file = new File(filename);
+                                if (!file.exists()) {
+                                    file.createNewFile();
+                                }
+                                hystoryService = HystoryService.getInstance(file);
+                                hystoryService.writeLineToFile(str + System.lineSeparator());
                             } else if (str.startsWith("/clientslist")) {
                                 // /clientslist nick1 nick2 nick3
                                 String[] subStr = str.split(" ");
@@ -208,4 +225,15 @@ public class Controller implements Initializable {
         }
 
     }
+
+    public void log() throws IOException {
+        File log = new File("src/main/java/ru/geekbrains/client/Log/history_" + nickname + ".txt");
+        System.out.println(nickname);
+        System.out.println(log.exists());
+//        if (!log.exists()){
+//            log.createNewFile();
+//        }
+    }
+
 }
+

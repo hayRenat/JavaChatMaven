@@ -1,0 +1,24 @@
+Welcome to chat
+
+[14:34:20 01.03.2021] Artem: это второй логин
+
+[14:34:22 01.03.2021] Artem: как связь
+
+[14:34:24 01.03.2021] Artem: тест
+
+[14:34:32 01.03.2021] Artem: тест 2
+
+[14:34:37 01.03.2021] Renat: тест 1
+
+[14:34:42 01.03.2021] Renat: Ренат
+
+[14:34:47 01.03.2021] Artem: Артём
+
+Renat leaves chat
+
+Welcome to chat
+
+Welcome to chat
+
+Welcome to chat
+
