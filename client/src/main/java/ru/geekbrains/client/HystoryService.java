@@ -2,6 +2,8 @@ package ru.geekbrains.client;
 
 
 import org.apache.commons.io.input.ReversedLinesFileReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +17,7 @@ import java.util.List;
 public class HystoryService implements ReadWriteLinesToFile{
 
     private PrintWriter printWriter;
+    private static Logger logger = LogManager.getLogger();
 
     private HystoryService(PrintWriter printWriter){
         this.printWriter = printWriter;
@@ -24,7 +27,7 @@ public class HystoryService implements ReadWriteLinesToFile{
         try {
             return new HystoryService(new PrintWriter(new FileOutputStream(file, true), true));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Ошибка чтения файла" + e);
             throw e;
         }
     }
@@ -47,14 +50,14 @@ public class HystoryService implements ReadWriteLinesToFile{
         List<String> result = new ArrayList<>();
         try (ReversedLinesFileReader reader = new ReversedLinesFileReader(file, Charset.defaultCharset())){
             for (int i = 0; i < numberOfLines; i++) {
-                String line = reader.readLine();
+                String line = reader.readLine() + "\n";
                 if (line == null){
                     return result;
                 }
                 result.add(line);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("Ошибка чтения файла" + e);
         }
         return result;
     }
