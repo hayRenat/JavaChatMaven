@@ -16,19 +16,17 @@ public class SQLHandler {
             connection = DriverManager.getConnection("jdbc:sqlite:server/database.db");
             statement = connection.createStatement();
             logger.info("Успешное подключение к БД");
-        } catch (Exception e) {
-            logger.error("Не удалось подключиться к базе данных " + connection.toString());
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.error("Не удалось подключиться к базе данных " + e);
         }
     }
 
-    public static void disconnect() {
+        public static void disconnect() {
         try {
             logger.info("Отключение от БД");
             connection.close();
         } catch (SQLException e) {
-            logger.error("Не удалось отключитсья от БД");
-            e.printStackTrace();
+            logger.error("Не удалось отключитсья от БД" + e);
         }
     }
 
@@ -41,7 +39,7 @@ public class SQLHandler {
                 return rs.getString("nickname");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Не удалось получить ответ от БД" + e);
         }
         logger.debug("Пользователь не найден");
         return null;
@@ -74,5 +72,23 @@ public class SQLHandler {
         }
         logger.warn("Неудачная попытка пользователя с ником" + oldNick + " изменить ник " + newNick);
         return false;
+    }
+
+
+//для тестов
+    public static void setConnection(Connection connection) {
+        SQLHandler.connection = connection;
+    }
+
+    public static void setStatement(Statement statement) {
+        SQLHandler.statement = statement;
+    }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    public static Statement getStatement() {
+        return statement;
     }
 }

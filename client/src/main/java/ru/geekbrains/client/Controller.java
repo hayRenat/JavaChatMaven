@@ -13,6 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -53,6 +55,7 @@ public class Controller implements Initializable {
     private ObservableList<String> clients;
     private boolean authorized;
     private ReadWriteLinesToFile hystoryService;
+    private static Logger logger = LogManager.getLogger();
 
 
     @Override
@@ -114,7 +117,7 @@ public class Controller implements Initializable {
                 textField.requestFocus();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Не удалось отправить команду на сервер" + e);
         }
     }
 
@@ -126,7 +129,7 @@ public class Controller implements Initializable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Не удалось отправить команду на сервер" + e);
         }
     }
 
@@ -139,76 +142,65 @@ public class Controller implements Initializable {
     }
 
     private void connect() {
-        try {
             if (socket == null || socket.isClosed()) {
-                socket = new Socket("localhost", 8189);
-                in = new DataInputStream(socket.getInputStream());
-                out = new DataOutputStream(socket.getOutputStream());
                 new Thread(() -> {
-                    try {
-                        while (true) {
-                            String str = in.readUTF();
-                            // /authok nick
-                            if (str.startsWith("/authok")) {
-                                nickname = str.split(" ")[1];
-                                setAuthorized(true);
-                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
-                                File file = new File(filename);
-                                if (!file.exists()) {
-                                file.createNewFile();
-                                }
-                                hystoryService = HystoryService.getInstance(file);
-                                List<String> chat = hystoryService.getLastLines(file, 100);
-                                textArea.appendText(chat.toString());
-                                break;
-                            }
-                        }
-                        while (true) {
-                            String str = in.readUTF();
-                            if (!str.startsWith("/")) {
-                                textArea.appendText(str + System.lineSeparator());
-                                String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
-                                File file = new File(filename);
-                                if (!file.exists()) {
-                                    file.createNewFile();
-                                }
-                                hystoryService = HystoryService.getInstance(file);
-                                hystoryService.writeLineToFile(str + System.lineSeparator());
-                            } else if (str.startsWith("/clientslist")) {
-                                // /clientslist nick1 nick2 nick3
-                                String[] subStr = str.split(" ");
-                                clients.clear();
-                                for (int i = 1; i < subStr.length; i++) {
-                                    clients.add(subStr[i]);
+                    try (Socket socket = new Socket("localhost", 8189);
+                         DataInputStream in = new DataInputStream(socket.getInputStream());
+                         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+                        this.socket = socket;
+                        this.in = in;
+                        this.out = out;
+                        try {
+                            while (true) {
+                                String str = in.readUTF();
+                                // /authok nick
+                                if (str.startsWith("/authok")) {
+                                    nickname = str.split(" ")[1];
+                                    setAuthorized(true);
+                                    String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                    File file = new File(filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    hystoryService = HystoryService.getInstance(file);
+                                    List<String> chat = hystoryService.getLastLines(file, 100);
+                                    textArea.appendText(chat.toString());
+                                    break;
+                                } if (str.startsWith("Wrong")) {
+                                    setAlertmsg(str);
                                 }
                             }
+                            while (true) {
+                                String str = in.readUTF();
+                                if (!str.startsWith("/")) {
+                                    textArea.appendText(str + System.lineSeparator());
+                                    String filename = System.getProperty("user.dir") + "\\history_" + nickname + ".txt";
+                                    File file = new File(filename);
+                                    if (!file.exists()) {
+                                        file.createNewFile();
+                                    }
+                                    hystoryService = HystoryService.getInstance(file);
+                                    hystoryService.writeLineToFile(str + System.lineSeparator());
+                                } else if (str.startsWith("/clientslist")) {
+                                    // /clientslist nick1 nick2 nick3
+                                    String[] subStr = str.split(" ");
+                                    clients.clear();
+                                    for (int i = 1; i < subStr.length; i++) {
+                                        clients.add(subStr[i]);
+                                    }
+                                }
+                            }
+                        } catch (IOException e) {
+                            logger.error("Ошибка считывания команды сервера" + e);
+                        } finally {
+                            setAuthorized(false);
                         }
+
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            in.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            out.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        setAuthorized(false);
+                        logger.error("Ошибка коннекта" + e);
                     }
                 }).start();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void registerBtn() {
@@ -221,7 +213,7 @@ public class Controller implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Ошибка кнопки регистрации" + e);
         }
 
     }
@@ -235,5 +227,11 @@ public class Controller implements Initializable {
 //        }
     }
 
+    public void setAlertmsg(String alertmsg) {
+        Platform.runLater(()-> {
+            Alert alert = new Alert(Alert.AlertType.ERROR, alertmsg, ButtonType.OK);
+            alert.showAndWait();
+        });
+    }
 }
 

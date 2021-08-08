@@ -50,3 +50,88 @@ java.net.SocketException: Socket closed
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
 	at java.base/java.lang.Thread.run(Thread.java:834) [?:?]
+2021-08-04 18:37:51,018 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:39:09,573 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:42:44,100 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:46:50,697 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:48:48,685 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:52:03,589 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:54:32,506 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:58:44,570 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 18:59:01,367 ERROR r.g.c.Controller [Thread-4] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 19:07:05,178 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-04 19:13:14,446 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:13:29,681 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:13:59,556 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:14:01,217 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:14:01,406 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:14:27,628 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:16:51,956 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:18:39,553 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:19:01,505 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:19:02,710 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:19:03,354 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:23:58,839 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:32:34,135 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:34:06,098 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:37:22,756 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:40:33,310 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:41:02,958 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:41:57,263 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:44:25,024 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:50:42,602 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 19:53:22,585 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 19:53:55,684 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:00:29,079 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:06:09,443 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:06:56,539 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:11:47,932 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:12:14,579 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:12:59,117 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:13:07,759 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:13:39,290 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:18:14,558 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:23:25,875 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:24:45,078 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:24:55,057 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:29:10,558 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:37:06,756 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:52:26,406 ERROR r.g.c.Controller [JavaFX Application Thread] Ошибка коннектаjava.net.ConnectException: Connection refused: connect
+2021-08-04 20:53:23,648 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:56:56,985 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:57:00,856 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:57:01,024 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 20:57:29,874 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 20:59:58,361 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 21:01:08,065 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 21:03:39,485 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 21:13:57,732 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 21:15:10,138 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 21:18:54,028 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-04 21:19:16,407 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-04 21:49:13,172 ERROR r.g.c.Controller [JavaFX Application Thread] Не удалось отправить команду на серверjava.net.SocketException: Software caused connection abort: socket write error
+2021-08-08 14:53:38,682 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 14:55:02,442 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 14:59:18,123 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 15:12:11,449 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 15:54:25,025 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 15:54:31,952 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 15:54:37,200 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 15:57:31,755 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-08 15:59:27,187 ERROR r.g.c.Controller [Thread-4] Ошибка считывания команды сервераjava.net.SocketException: Socket closed
+2021-08-08 16:03:56,494 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 16:05:47,874 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 16:15:03,280 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 16:25:51,124 ERROR r.g.c.HystoryService [Thread-3] Ошибка чтения файлаjava.lang.NullPointerException
+2021-08-08 16:28:14,926 ERROR r.g.c.HystoryService [Thread-3] Ошибка чтения файлаjava.lang.NullPointerException
+2021-08-08 16:29:32,291 ERROR r.g.c.HystoryService [Thread-3] Ошибка чтения файлаjava.lang.NullPointerException
+2021-08-08 16:29:52,872 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 16:30:22,489 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 16:30:37,521 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 19:06:33,426 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 19:08:47,423 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 19:09:05,505 ERROR r.g.c.Controller [Thread-4] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 19:46:29,475 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 21:25:11,264 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException
+2021-08-08 21:33:31,963 ERROR r.g.c.Controller [Thread-4] Ошибка считывания команды сервераjava.net.SocketException: Connection reset
+2021-08-08 22:03:14,001 ERROR r.g.c.Controller [Thread-3] Ошибка считывания команды сервераjava.io.EOFException

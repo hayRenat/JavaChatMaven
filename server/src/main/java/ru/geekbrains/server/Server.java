@@ -1,5 +1,10 @@
 package ru.geekbrains.server;
 
+
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
     private Map<String, ClientHandler> clients;
+    private Socket socket;
+    private static Logger logger = LogManager.getLogger();
 
     public Server() {
         try {
@@ -16,13 +23,28 @@ public class Server {
             clients = new ConcurrentHashMap<>();
             while (true) {
                 System.out.println("Ждем подключения клиента");
-                Socket socket = serverSocket.accept();
+                socket = serverSocket.accept();
                 ClientHandler c = new ClientHandler(this, socket);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+            logger.error("Не удалось создать сокет" + e);
+        }
+        finally {
             SQLHandler.disconnect();
+        }
+    }
+
+    public Server(String test) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(8189);
+            clients = new ConcurrentHashMap<>();
+            while (true) {
+                System.out.println("Ждем подключения клиента");
+                socket = serverSocket.accept();
+                break;
+            }
+        } catch (IOException e) {
+            logger.error("Не удалось создать сокет" + e);
         }
     }
 
@@ -58,12 +80,6 @@ public class Server {
     }
 
     public void broadcastClientList() {
-//        String result = "/clientslist";
-//        for (String nick : clients.keySet()) {
-//            result = result + " " + nick;
-//        }
-//        broadcastMsg(result);
-
         StringBuilder sb = new StringBuilder();
         sb.append("/clientslist");
         // /clientslist nick1 nick2 nick3
@@ -71,5 +87,17 @@ public class Server {
             sb.append(" " + nick);
         }
         broadcastMsg(sb.toString());
+    }
+//для тестов
+    public Map<String, ClientHandler> getClients() {
+        return clients;
+    }
+
+    public void setClients(Map<String, ClientHandler> clients) {
+        this.clients = clients;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }
