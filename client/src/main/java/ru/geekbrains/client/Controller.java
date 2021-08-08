@@ -98,7 +98,6 @@ public class Controller implements Initializable {
             nickname = "";
         }
 
-
         Platform.runLater(() -> {
             if (nickname.isEmpty()) {
                 ((Stage) mainBox.getScene().getWindow()).setTitle("Java Chat Client");
@@ -134,7 +133,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     public void sendAuth() {
         connect();
         // /auth login1 password1
@@ -142,7 +140,6 @@ public class Controller implements Initializable {
         loginField.clear();
         passField.clear();
     }
-
 
     private void connect() {
             if (socket == null || socket.isClosed()) {

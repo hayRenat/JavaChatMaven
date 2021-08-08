@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-
 public class SQLHandler {
     private static Connection connection;
     private static Statement statement;

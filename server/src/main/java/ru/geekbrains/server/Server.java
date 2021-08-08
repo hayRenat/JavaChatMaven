@@ -1,6 +1,7 @@
 package ru.geekbrains.server;
 
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,12 +80,6 @@ public class Server {
     }
 
     public void broadcastClientList() {
-//        String result = "/clientslist";
-//        for (String nick : clients.keySet()) {
-//            result = result + " " + nick;
-//        }
-//        broadcastMsg(result);
-
         StringBuilder sb = new StringBuilder();
         sb.append("/clientslist");
         // /clientslist nick1 nick2 nick3

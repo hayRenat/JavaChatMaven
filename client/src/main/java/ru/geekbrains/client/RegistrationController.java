@@ -15,7 +15,6 @@ public class RegistrationController {
     private Socket socket;
     private static Logger logger = LogManager.getLogger();
 
-
     @FXML
     TextField login, password, nickname;
 
